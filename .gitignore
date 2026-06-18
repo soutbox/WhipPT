@@ -1,0 +1,12 @@
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log
+.env
+
+*.jks
+*.p12
+*.pem
+*.key
+*.crt

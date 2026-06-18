@@ -1,0 +1,102 @@
+/* 하단 입력 영역 컨테이너: 화면 바닥과의 여백 확보 */
+.input-area {
+    padding: 16px 20px 20px;
+}
+
+/* 채팅창(800px)과 동일한 너비로 중앙 정렬하여 시각적 통일감 제공 */
+.input-inner {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* 입력 박스 외형: 텍스트 입력부와 버튼을 가로로 배치하고, 다중 줄 입력 시 텍스트 아래선에 맞춰 버튼 정렬(flex-end) */
+.input-box {
+    display: flex;
+    align-items: flex-end;
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    border-radius: var(--radius);
+    padding: 8px 10px 8px 16px;
+    transition: border-color 0.15s;
+}
+
+.input-box:focus-within {
+    border-color: rgba(124, 111, 247, 0.4);
+}
+
+/* 실제 타이핑이 이루어지는 textarea 요소 스타일링 (배경 투명화, 스크롤바 제거) */
+.input-box textarea {
+    flex: 1;
+    background: none;
+    border: none;
+    outline: none;
+    resize: none;
+    color: var(--text);
+    font-size: 14.5px;
+    line-height: 1.5;
+    min-height: 22px;
+    padding: 6px 0;
+    margin-right: 12px;
+    font-family: inherit;
+}
+
+.input-box textarea::placeholder {
+    color: var(--text3);
+}
+
+/* 전송 및 중지 버튼을 감싸는 래퍼 (버튼의 수직 높이 미세 조정용) */
+.input-controls {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 2px;
+}
+
+/* 전송(Send) 및 정지(Stop) 버튼 공통 규격 */
+.send-btn, .stop-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-sm);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    transition: all 0.15s;
+}
+
+/* 전송 버튼 기본(보라색) 및 호버/비활성 상태 스타일 */
+.send-btn {
+    background: var(--accent);
+    color: white;
+}
+
+.send-btn:hover {
+    background: var(--accent2);
+}
+
+.send-btn:disabled {
+    background: var(--bg4);
+    color: var(--text3);
+    cursor: not-allowed;
+}
+
+/* 응답 정지 버튼(붉은색) 스타일 */
+.stop-btn {
+    background: var(--error-bg);
+    border: 1px solid rgba(248, 113, 113, 0.2);
+    color: var(--error);
+}
+
+.stop-btn:hover {
+    background: rgba(248, 113, 113, 0.15);
+}
+
+/* 입력창 아래 'Enter로 전송...' 안내 문구 스타일 */
+.input-hint {
+    font-size: 11px;
+    color: var(--text3);
+    text-align: center;
+    margin-top: 8px;
+}
