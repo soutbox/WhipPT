@@ -27,6 +27,8 @@ dependencies {
 	testCompileOnly("org.projectlombok:lombok")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 	testAnnotationProcessor("org.projectlombok:lombok")
+	testImplementation("io.projectreactor:reactor-test") // StepVerifier 사용
+	testImplementation("com.squareup.okhttp3:mockwebserver:5.4.0")
 }
 
 tasks.withType<Test> {

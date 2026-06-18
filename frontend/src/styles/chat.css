@@ -50,8 +50,17 @@
     width: 7px;
     height: 7px;
     border-radius: 50%;
+    transition: all 0.3s;
+}
+
+.status-dot.online {
     background: #22c55e;
     box-shadow: 0 0 4px #22c55e;
+}
+
+.status-dot.offline {
+    background: #ef4444;
+    box-shadow: 0 0 4px #ef4444;
 }
 
 /* 채팅 내역 스크롤 영역: 메시지들이 쌓이는 본문 영역 */
