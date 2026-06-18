@@ -14,8 +14,8 @@ export default function Sidebar({ open, conversations, activeId, setActiveId, ne
     return (
         <aside className={`sidebar${open ? "" : " closed"}`}>
             <div className="sidebar-header">
-                <div className="logo">
-                    <img src={whipptLogo} alt="WhipPT Logo" className="logo-img" />
+                <div className="logo" onClick={newConversation}>
+                    <img src={whipptLogo} alt="WhipPT Logo" className="logo-img"/>
                     WhipPT
                 </div>
                 <button className="new-chat-btn" onClick={newConversation}>

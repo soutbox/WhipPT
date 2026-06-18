@@ -12,61 +12,79 @@ import "./styles/global.css";
 import "./styles/chat.css";
 
 export default function App() {
-  const [input, setInput] = useState("");
-  const [sidebarOpen, setSidebarOpen] = useState(true);
-  const bottomRef = useRef(null);
+    const [input, setInput] = useState("");
+    const [sidebarOpen, setSidebarOpen] = useState(true);
+    const bottomRef = useRef(null);
 
-  // 분리한 Custom Hooks 호출
-  const { conversations, activeId, setActiveId, activeConv, updateConv, newConversation, deleteConversation } = useConversations();
-  const { sendMessage, stopStreaming, isStreaming } = useChatStream(activeId, activeConv, updateConv);
+    // 스크롤 컨테이너와 자동 스크롤 활성화 여부를 추적할 Ref
+    const messagesContainerRef = useRef(null);
+    const autoScrollEnabled = useRef(true);
 
-  // 메시지가 추가될 때마다 자동 스크롤
-  useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [activeConv?.messages]);
+    const { conversations, activeId, setActiveId, activeConv, updateConv, newConversation, deleteConversation } = useConversations();
+    const { sendMessage, stopStreaming, isStreaming } = useChatStream(activeId, activeConv, updateConv);
 
-  const handleSend = () => {
-    sendMessage(input, setInput);
-  };
+    // 사용자가 스크롤을 위로 올렸는지 판별
+    const handleScroll = () => {
+        if (!messagesContainerRef.current) return;
 
-  return (
-      <div className="app" style={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
-        <Sidebar
-            open={sidebarOpen}
-            conversations={conversations}
-            activeId={activeId}
-            setActiveId={setActiveId}
-            newConversation={newConversation}
-            deleteConversation={deleteConversation}
-        />
+        const { scrollTop, scrollHeight, clientHeight } = messagesContainerRef.current;
 
-        <main className="main">
-          <TopBar
-              toggleSidebar={() => setSidebarOpen(!sidebarOpen)}
-              title={activeConv?.title}
-          />
+        // 바닥에서 100px 이내인지 확인하여 자동 스크롤 여부 결정
+        const isAtBottom = scrollHeight - scrollTop - clientHeight < 100;
+        autoScrollEnabled.current = isAtBottom;
+    };
 
-          {activeConv?.messages.length === 0 ? (
-              <EmptyState onStarterClick={(text) => setInput(text)} />
-          ) : (
-              <div className="messages">
-                <div className="msg-wrap">
-                  {activeConv.messages.map(msg => (
-                      <MessageBubble key={msg.id} msg={msg} />
-                  ))}
-                  <div ref={bottomRef} />
-                </div>
-              </div>
-          )}
+    // 메시지가 추가될 때 조건부 자동 스크롤
+    useEffect(() => {
+        if (autoScrollEnabled.current) {
+            bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+        }
+    }, [activeConv?.messages]);
 
-          <ChatInput
-              input={input}
-              setInput={setInput}
-              isStreaming={isStreaming}
-              onSend={handleSend}
-              onStop={stopStreaming}
-          />
-        </main>
-      </div>
-  );
+    const handleSend = () => {
+        // 새 메시지 전송 시 무조건 바닥으로 스크롤 강제 ON
+        autoScrollEnabled.current = true;
+        sendMessage(input, setInput);
+    };
+
+    return (
+        <div className="app" style={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
+            <Sidebar
+                open={sidebarOpen}
+                conversations={conversations}
+                activeId={activeId}
+                setActiveId={setActiveId}
+                newConversation={newConversation}
+                deleteConversation={deleteConversation}
+            />
+
+            <main className="main">
+                <TopBar
+                    toggleSidebar={() => setSidebarOpen(!sidebarOpen)}
+                    title={activeConv?.title}
+                />
+
+                {activeConv?.messages.length === 0 ? (
+                    <EmptyState onStarterClick={(text) => setInput(text)} />
+                ) : (
+                    <div className="messages" ref={messagesContainerRef} onScroll={handleScroll}>
+                        <div className="msg-wrap">
+                            {activeConv.messages.map(msg => (
+                                <MessageBubble key={msg.id} msg={msg} />
+                            ))}
+                            <div ref={bottomRef} />
+                        </div>
+                    </div>
+                )}
+
+                <ChatInput
+                    input={input}
+                    setInput={setInput}
+                    isStreaming={isStreaming}
+                    onSend={handleSend}
+                    onStop={stopStreaming}
+                />
+            </main>
+        </div>
+    );
 }

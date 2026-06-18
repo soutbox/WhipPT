@@ -10,6 +10,7 @@ export function useConversations() {
         messages : [],
         createdAt: Date.now()
     }]);
+
     /* 현재 사용자가 보고 있는 대화방의 고유 ID 상태 */
     const [activeId, setActiveId] = useState("default");
 
