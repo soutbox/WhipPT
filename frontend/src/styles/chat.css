@@ -25,10 +25,15 @@
     cursor: pointer;
     padding: 6px;
     border-radius: var(--radius-sm);
-    font-size: 18px;
     display: flex;
     align-items: center;
+    justify-content: center;
     transition: all 0.15s;
+}
+
+.toggle-btn svg {
+    width: 20px;
+    height: 20px;
 }
 
 .toggle-btn:hover {
@@ -61,6 +66,26 @@
 .status-dot.offline {
     background: #ef4444;
     box-shadow: 0 0 4px #ef4444;
+}
+
+.status-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.status-label {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.status-label.online {
+    color: #22c55e;
+}
+
+.status-label.offline {
+    color: #ef4444;
 }
 
 /* 채팅 내역 스크롤 영역: 메시지들이 쌓이는 본문 영역 */

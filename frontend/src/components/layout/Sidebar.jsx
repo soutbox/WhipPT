@@ -3,7 +3,15 @@ import { formatDate } from "../../utils/formatters";
 import whipptLogo from "../../assets/whippt_no_background.png";
 import "../../styles/sidebar.css";
 
-export default function Sidebar({ open, conversations, activeId, setActiveId, newConversation, deleteConversation }) {
+export default function Sidebar({
+    open,
+    conversations,
+    activeId,
+    setActiveId,
+    goHome,
+    startNewDraft,
+    deleteConversation
+}) {
     const [searchQuery, setSearchQuery] = useState("");
 
     const filteredConvs = conversations.filter(c =>
@@ -14,11 +22,11 @@ export default function Sidebar({ open, conversations, activeId, setActiveId, ne
     return (
         <aside className={`sidebar${open ? "" : " closed"}`}>
             <div className="sidebar-header">
-                <div className="logo" onClick={newConversation}>
+                <div className="logo" onClick={goHome}>
                     <img src={whipptLogo} alt="WhipPT Logo" className="logo-img"/>
                     WhipPT
                 </div>
-                <button className="new-chat-btn" onClick={newConversation}>
+                <button className="new-chat-btn" onClick={startNewDraft}>
                     <span>＋</span> 새 대화
                 </button>
                 <div className="search-wrap">

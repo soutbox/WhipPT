@@ -5,6 +5,9 @@ Thumbs.db
 *.log
 .env
 
+application-prod.properties
+backend/application-local.properties
+
 *.jks
 *.p12
 *.pem

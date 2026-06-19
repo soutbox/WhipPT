@@ -7,4 +7,6 @@ public class OllamaResponse {
     private String model;
     private String response;
     private boolean done;
+    private String source;
+    private Integer queuePosition;
 }

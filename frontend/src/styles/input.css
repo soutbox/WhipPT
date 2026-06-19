@@ -24,6 +24,40 @@
     border-color: rgba(124, 111, 247, 0.4);
 }
 
+.input-box.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.input-box.disabled:focus-within {
+    border-color: var(--border2);
+}
+
+.input-box textarea:disabled {
+    cursor: not-allowed;
+}
+
+.offline-banner,
+.queue-banner {
+    font-size: 13px;
+    text-align: center;
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 8px;
+}
+
+.offline-banner {
+    background: rgba(239, 68, 68, 0.1);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.queue-banner {
+    background: rgba(234, 179, 8, 0.1);
+    color: #fbbf24;
+    border: 1px solid rgba(234, 179, 8, 0.2);
+}
+
 /* 실제 타이핑이 이루어지는 textarea 요소 스타일링 (배경 투명화, 스크롤바 제거) */
 .input-box textarea {
     flex: 1;
