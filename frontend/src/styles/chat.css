@@ -88,6 +88,21 @@
     color: #ef4444;
 }
 
+.status-dot.busy {
+    background: #fbbf24;
+    box-shadow: 0 0 4px #fbbf24;
+}
+
+.status-label.busy {
+    color: #fbbf24;
+}
+
+.queue-placeholder {
+    font-size: 13px;
+    color: #fbbf24;
+    font-style: italic;
+}
+
 /* 채팅 내역 스크롤 영역: 메시지들이 쌓이는 본문 영역 */
 .messages {
     flex: 1;

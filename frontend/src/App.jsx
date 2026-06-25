@@ -2,6 +2,7 @@ import {useState, useRef, useEffect} from "react";
 import {useConversations} from "./hooks/useConversations";
 import {useChatStream} from "./hooks/useChatStream";
 import {useAiHealth} from "./hooks/useAiHealth";
+import {useQueueStatus} from "./hooks/useQueueStatus";
 import Sidebar from "./components/layout/Sidebar";
 import TopBar from "./components/layout/TopBar";
 import EmptyState from "./components/chat/EmptyState";
@@ -32,6 +33,7 @@ export default function App() {
     } = useConversations();
     const {sendMessage, stopStreaming, isStreaming, queueWaiting} =
         useChatStream(activeId, activeConv, updateConv, isAiOnline);
+    const {waitingJobs} = useQueueStatus(isAiOnline, isStreaming);
 
     const handleScroll = () => {
         if (!messagesContainerRef.current) return;
@@ -83,6 +85,7 @@ export default function App() {
                     title={activeConv?.title}
                     isAiOnline={isAiOnline}
                     sidebarOpen={sidebarOpen}
+                    waitingJobs={waitingJobs}
                 />
                 {!isAiOnline && activeConv?.messages.length === 0 ? (
                     <AiOfflineState/>
@@ -91,8 +94,16 @@ export default function App() {
                 ) : (
                     <div className="messages" ref={messagesContainerRef} onScroll={handleScroll}>
                         <div className="msg-wrap">
-                            {activeConv.messages.map(msg => (
-                                <MessageBubble key={msg.id} msg={msg}/>
+                            {activeConv.messages.map((msg, index, messages) => (
+                                <MessageBubble
+                                    key={msg.id}
+                                    msg={msg}
+                                    queueWaiting={
+                                        msg.streaming && index === messages.length - 1
+                                            ? queueWaiting
+                                            : 0
+                                    }
+                                />
                             ))}
                             <div ref={bottomRef}/>
                         </div>

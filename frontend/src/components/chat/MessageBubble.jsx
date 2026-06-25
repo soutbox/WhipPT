@@ -7,7 +7,7 @@ import { formatTime } from "../../utils/formatters";
 import whipptLogo from "../../assets/whippt_no_background.png";
 import 'katex/dist/katex.min.css';
 
-export default function MessageBubble({ msg }) {
+export default function MessageBubble({ msg, queueWaiting = 0 }) {
     const [copyToast, setCopyToast] = useState(false);
 
     const handleCopy = () => {
@@ -29,7 +29,11 @@ export default function MessageBubble({ msg }) {
                     <span className="msg-time">{formatTime(msg.ts)}</span>
                 </div>
                 <div className={`bubble${msg.error ? " error" : ""}`}>
-                    {isAI ? (
+                    {isAI && msg.streaming && !msg.content && queueWaiting > 0 ? (
+                        <span className="queue-placeholder">
+                            대기열 {queueWaiting + 1}번째 · 응답 준비 중...
+                        </span>
+                    ) : isAI ? (
                         <div className="md-content">
                             <ReactMarkdown remarkPlugins={[remarkGfm, remarkMath]} rehypePlugins={[rehypeKatex]}>
                                 {msg.content}
@@ -38,7 +42,7 @@ export default function MessageBubble({ msg }) {
                     ) : (
                         msg.content
                     )}
-                    {msg.streaming && <span className="cursor" />}
+                    {msg.streaming && (msg.content || queueWaiting === 0) && <span className="cursor" />}
                 </div>
                 {!msg.streaming && isAI && (
                     <div className="msg-actions">

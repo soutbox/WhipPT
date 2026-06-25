@@ -1,4 +1,4 @@
-export default function TopBar({toggleSidebar, title, isAiOnline, sidebarOpen}) {
+export default function TopBar({toggleSidebar, title, isAiOnline, sidebarOpen, waitingJobs = 0}) {
   const iconTitle = sidebarOpen ? "사이드바 닫기" : "사이드바 열기";
 
   return (
@@ -24,6 +24,12 @@ export default function TopBar({toggleSidebar, title, isAiOnline, sidebarOpen}) 
         <span className={`status-label ${isAiOnline ? 'online' : 'offline'}`}>
           {isAiOnline ? 'Online' : 'Offline'}
         </span>
+        {isAiOnline && waitingJobs > 0 && (
+          <>
+            <div className="status-dot busy"/>
+            <span className="status-label busy">대기 {waitingJobs}</span>
+          </>
+        )}
       </div>
     </div>
   );

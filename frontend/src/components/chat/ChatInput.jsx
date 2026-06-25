@@ -36,7 +36,7 @@ export default function ChatInput({
             <div className="input-inner">
                 {queueWaiting > 0 && (
                     <div className="queue-banner">
-                        앞에 {queueWaiting}개의 질문이 처리 중입니다...
+                        대기열 {queueWaiting + 1}번째 · 앞선 요청 처리 후 응답합니다
                     </div>
                 )}
                 {!isAiOnline && (
