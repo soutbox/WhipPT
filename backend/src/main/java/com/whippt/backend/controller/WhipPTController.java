@@ -24,7 +24,7 @@ public class WhipPTController {
     @GetMapping("/health")
     public Mono<Boolean> healthCheck() {
         return whipPTService.checkOllamaHealth();
-    }
+    }   
 
     @GetMapping("/queue/status")
     public QueueStatusResponse queueStatus() {
