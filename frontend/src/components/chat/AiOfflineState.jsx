@@ -12,7 +12,7 @@ export default function AiOfflineState() {
             </div>
             <div className="empty-sub"
                  style={{fontSize: "16px", color: "var(--text2)", marginTop: "8px", lineHeight: "1.7"}}
-                 >AI 서버 네트워크가 원활하지 않습니다.<br/>잠시 후 다시 시도해주세요.
+                 >※ 운영시간 13:00 ~ 18:00 (UTC+9)
             </div>
         </div>
     );

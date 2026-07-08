@@ -39,11 +39,11 @@ export default function ChatInput({
                         대기열 {queueWaiting + 1}번째 · 앞선 요청 처리 후 응답합니다
                     </div>
                 )}
-                {!isAiOnline && (
-                    <div className="offline-banner">
-                        AI 서버 오프라인 · 잠시 후 다시 시도해주세요
-                    </div>
-                )}
+                {/*{!isAiOnline && (*/}
+                {/*    <div className="offline-banner">*/}
+                {/*        AI 서버 오프라인*/}
+                {/*    </div>*/}
+                {/*)}*/}
                 <div className={`input-box ${disabled ? 'disabled' : ''}`}>
                     <textarea
                         ref={textareaRef}
